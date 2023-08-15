@@ -5,6 +5,10 @@ SerialNumber=$(ioreg -l | grep IOPlatformSerialNumber | awk '{print $4}' | sed '
 foundSerial=false
 RecoveryKey=$(fdesetup changerecovery -personal | awk '{print $6}' | tr -d "'")
 
+if [ RecoveryKey == "" ];then
+	exit 1
+fi
+
 if [ RecoveryKey != "" ];then
 
 cat >  /tmp/FV.plist <<EOF
